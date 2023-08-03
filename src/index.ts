@@ -12,8 +12,7 @@ const createAndRunServer = (): void => {
 
 	app.listen(port, async () => {
 		console.log('server is running on the port: ', port);
-		await connect();
-		console.log('mongo connected..!');
+		connect();
 	});
 };
 
