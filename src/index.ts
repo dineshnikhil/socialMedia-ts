@@ -1,25 +1,20 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import body_parser from 'body-parser';
 import connect from './config/database';
-import Tweet from './models/tweet';
+import ApiRoutes from './routes/index';
 
 const port = 3000;
 
 const createAndRunServer = (): void => {
 	const app = express();
 
-	app.get('/', (req: Request, res: Response) => {
-		res.send('hello this is my firt typescript server..!');
-	});
+	app.use(body_parser.json());
+	app.use(body_parser.urlencoded({ extended: true }));
+	app.use('/api', ApiRoutes);
 
 	app.listen(port, async () => {
 		console.log('server is running on the port: ', port);
 		connect();
-
-		const tweet = await Tweet.create({
-			content: 'fourth tweet..!',
-			email: 'a@b.com',
-		});
-		console.log(tweet);
 	});
 };
 

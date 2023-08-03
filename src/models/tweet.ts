@@ -1,13 +1,12 @@
 import mongoose, { Document, Schema } from 'mongoose';
+import { z } from 'zod';
+import { tweet } from '../utils/tweet';
 
 // define the interface to define the structure of the document
-interface tweet extends Document {
-	content: string;
-	email: string;
-}
+type tweetType = z.infer<typeof tweet>;
 
 // defining the tweet model schema.
-const tweetSchema = new mongoose.Schema<tweet>(
+const tweetSchema = new mongoose.Schema<tweetType>(
 	{
 		content: {
 			type: String,
@@ -21,6 +20,6 @@ const tweetSchema = new mongoose.Schema<tweet>(
 );
 
 // creating the tweet model.
-const Tweet = mongoose.model<tweet>('tweet', tweetSchema);
+const Tweet = mongoose.model<tweetType>('tweet', tweetSchema);
 
 export default Tweet;
