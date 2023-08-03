@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const database_1 = __importDefault(require("./config/database"));
+const tweet_1 = __importDefault(require("./models/tweet"));
 const port = 3000;
 const createAndRunServer = () => {
     const app = (0, express_1.default)();
@@ -22,8 +23,12 @@ const createAndRunServer = () => {
     });
     app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
         console.log('server is running on the port: ', port);
-        yield (0, database_1.default)();
-        console.log('mongo connected..!');
+        (0, database_1.default)();
+        const tweet = yield tweet_1.default.create({
+            content: 'fourth tweet..!',
+            email: 'a@b.com',
+        });
+        console.log(tweet);
     }));
 };
 createAndRunServer();
