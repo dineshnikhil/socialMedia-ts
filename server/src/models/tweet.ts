@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose from 'mongoose';
 import { z } from 'zod';
 import { tweet } from '../utils/tweet';
 
