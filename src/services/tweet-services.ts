@@ -1,8 +1,5 @@
 import TweetRepository from '../repository/tweet-repository';
-import { z } from 'zod';
-import { tweet } from '../utils/tweet';
-
-type tweetType = z.infer<typeof tweet>;
+import { tweetType } from '../utils/tweet';
 
 class TweetServices {
 	tweetRepository: TweetRepository;

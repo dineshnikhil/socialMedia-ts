@@ -1,11 +1,8 @@
 import Tweet from '../models/tweet';
-import { z } from 'zod';
-import { tweet } from '../utils/tweet';
-
-type tweet = z.infer<typeof tweet>;
+import { tweetType } from '../utils/tweet';
 
 class TweetRepository {
-	async create(data: tweet) {
+	async create(data: tweetType) {
 		try {
 			const tweet = await Tweet.create(data);
 			return tweet;

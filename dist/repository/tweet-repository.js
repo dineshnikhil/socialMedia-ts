@@ -12,19 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const body_parser_1 = __importDefault(require("body-parser"));
-const database_1 = __importDefault(require("./config/database"));
-const index_1 = __importDefault(require("./routes/index"));
-const port = 3000;
-const createAndRunServer = () => {
-    const app = (0, express_1.default)();
-    app.use(body_parser_1.default.json());
-    app.use(body_parser_1.default.urlencoded({ extended: true }));
-    app.use('/api', index_1.default);
-    app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
-        console.log('server is running on the port: ', port);
-        (0, database_1.default)();
-    }));
-};
-createAndRunServer();
+const tweet_1 = __importDefault(require("../models/tweet"));
+class TweetRepository {
+    create(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const tweet = yield tweet_1.default.create(data);
+                return tweet;
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
+}
+exports.default = TweetRepository;

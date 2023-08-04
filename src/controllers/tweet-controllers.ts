@@ -6,11 +6,9 @@ const tweetServices = new TweetServices();
 
 const create = async (req: Request, res: Response) => {
 	try {
-		console.log(req.body);
-
 		const parsedInput = tweet.safeParse(req.body);
 		if (parsedInput.success) {
-			const tweet = await tweetServices.create(req.body);
+			const tweet = await tweetServices.create(parsedInput.data);
 			return res.status(201).json({
 				data: tweet,
 				message: 'successfully created the tweet..!',
