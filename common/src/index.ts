@@ -7,7 +7,7 @@ export const tweet = z.object({
 
 export const createUser = z.object({
 	username: z.string(),
-	email: z.string().email(),
+	email: z.string().email('Send the valid email..!'),
 	password: z.string(),
 });
 

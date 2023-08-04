@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
-import TweetServices from '../services/tweet-services';
-import { tweet } from '../utils/tweet';
+import UserServices from '../services/user-services';
+import { createUser } from '../../../common/src';
 
-const tweetServices = new TweetServices();
+const userServices = new UserServices();
 
 const create = async (req: Request, res: Response) => {
 	try {
-		const parsedInput = tweet.safeParse(req.body);
+		const parsedInput = createUser.safeParse(req.body);
 		if (parsedInput.success) {
-			const tweet = await tweetServices.create(parsedInput.data);
+			const user = await userServices.create(parsedInput.data);
 			return res.status(201).json({
-				data: tweet,
-				message: 'successfully created the tweet..!',
+				data: user,
+				message: 'user was successfully created.!',
 				error: {},
 			});
 		} else {

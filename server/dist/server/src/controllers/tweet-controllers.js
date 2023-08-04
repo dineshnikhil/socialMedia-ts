@@ -35,7 +35,7 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }
     catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             data: {},
             message: 'unable to create the tweet.!',
             error: error,
