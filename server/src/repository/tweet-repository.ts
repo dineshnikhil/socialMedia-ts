@@ -1,5 +1,7 @@
 import Tweet from '../models/tweet';
-import { tweetType } from '../utils/tweet';
+// import { tweetType } from '../utils/tweet';
+
+import { tweetType } from '../../../common/src/index';
 
 class TweetRepository {
 	async create(data: tweetType) {
