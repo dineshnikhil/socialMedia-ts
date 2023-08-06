@@ -13,11 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const tweet_services_1 = __importDefault(require("../services/tweet-services"));
-const tweet_1 = require("../utils/tweet");
+const src_1 = require("../../../common/src");
 const tweetServices = new tweet_services_1.default();
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const parsedInput = tweet_1.tweet.safeParse(req.body);
+        const resFromUser = {
+            content: req.body.content,
+            userId: req.headers['userId'],
+        };
+        const parsedInput = src_1.tweet.safeParse(resFromUser);
         if (parsedInput.success) {
             const tweet = yield tweetServices.create(parsedInput.data);
             return res.status(201).json({

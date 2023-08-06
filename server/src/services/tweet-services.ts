@@ -1,5 +1,5 @@
 import TweetRepository from '../repository/tweet-repository';
-import { tweetType } from '../utils/tweet';
+import { tweetType } from '../../../common/src';
 
 class TweetServices {
 	tweetRepository: TweetRepository;

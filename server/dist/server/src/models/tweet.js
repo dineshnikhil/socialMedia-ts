@@ -10,7 +10,7 @@ const tweetSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
     },
-    email: {
+    userId: {
         type: String,
     },
 }, { timestamps: true });

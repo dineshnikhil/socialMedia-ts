@@ -32,10 +32,10 @@ const create = async (req: Request, res: Response) => {
 
 const signIn = async (req: Request, res: Response) => {
 	try {
-		const user = await userServices.getUser(req.body.username);
+		const token = await userServices.signin(req.body);
 		return res.status(200).json({
-			data: user,
-			message: 'successfully fetched the user.!',
+			token: token,
+			message: 'successfully loged in the user.!',
 			error: {},
 		});
 	} catch (error) {

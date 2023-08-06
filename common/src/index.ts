@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const tweet = z.object({
 	content: z.string(),
-	email: z.string(),
+	userId: z.string(),
 });
 
 export const createUser = z.object({
@@ -11,5 +11,11 @@ export const createUser = z.object({
 	password: z.string(),
 });
 
+export const signInUser = z.object({
+	username: z.string(),
+	password: z.string(),
+});
+
 export type tweetType = z.infer<typeof tweet>;
 export type createUserType = z.infer<typeof createUser>;
+export type signInUserType = z.infer<typeof signInUser>;

@@ -44,12 +44,10 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield userServices.getUser(req.body.username);
-        const user2 = yield userServices.getUserById(user === null || user === void 0 ? void 0 : user._id);
-        console.log(user2);
+        const token = yield userServices.signin(req.body);
         return res.status(200).json({
-            data: user,
-            message: 'successfully fetched the user.!',
+            token: token,
+            message: 'successfully loged in the user.!',
             error: {},
         });
     }

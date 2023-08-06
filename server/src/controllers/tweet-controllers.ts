@@ -1,12 +1,16 @@
 import { Request, Response } from 'express';
 import TweetServices from '../services/tweet-services';
-import { tweet } from '../utils/tweet';
+import { tweet } from '../../../common/src';
 
 const tweetServices = new TweetServices();
 
 const create = async (req: Request, res: Response) => {
 	try {
-		const parsedInput = tweet.safeParse(req.body);
+		const resFromUser = {
+			content: req.body.content,
+			userId: req.headers['userId'],
+		};
+		const parsedInput = tweet.safeParse(resFromUser);
 		if (parsedInput.success) {
 			const tweet = await tweetServices.create(parsedInput.data);
 			return res.status(201).json({

@@ -12,6 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_repository_1 = __importDefault(require("../repository/user-repository"));
 class UserServices {
     constructor() {
@@ -29,11 +31,19 @@ class UserServices {
             }
         });
     }
-    getUser(username) {
+    signin(userData) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const user = yield this.userRepository.getUser(username);
-                return user;
+                const user = yield this.userRepository.getUser(userData.username);
+                if (!user) {
+                    throw { error: 'user with this username not exsists.!' };
+                }
+                const passwordCheck = yield this.checkPassword(userData.password, user.password);
+                if (!passwordCheck) {
+                    throw { error: 'entered password is incorrect.!' };
+                }
+                const token = jsonwebtoken_1.default.sign({ id: user._id }, 'thisisit', { expiresIn: '1h' });
+                return token;
             }
             catch (error) {
                 console.log('something went wrong in the services layer.!');
@@ -41,11 +51,10 @@ class UserServices {
             }
         });
     }
-    getUserById(userId) {
+    checkPassword(userInputPassword, encryptedPassword) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const user = yield this.userRepository.getUserById(userId);
-                return user;
+                return bcrypt_1.default.compareSync(userInputPassword, encryptedPassword);
             }
             catch (error) {
                 console.log('something went wrong in the services layer.!');
