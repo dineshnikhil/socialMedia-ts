@@ -24,7 +24,24 @@ const create = async (req: Request, res: Response) => {
 	} catch (error) {
 		return res.status(400).json({
 			data: {},
-			message: 'unable to create the tweet.!',
+			message: 'unable to create the user.!',
+			error: error,
+		});
+	}
+};
+
+const signIn = async (req: Request, res: Response) => {
+	try {
+		const user = await userServices.getUser(req.body.username);
+		return res.status(200).json({
+			data: user,
+			message: 'successfully fetched the user.!',
+			error: {},
+		});
+	} catch (error) {
+		return res.status(400).json({
+			data: {},
+			message: 'unable to fetch the user.!',
 			error: error,
 		});
 	}
@@ -32,4 +49,5 @@ const create = async (req: Request, res: Response) => {
 
 export default {
 	create,
+	signIn,
 };

@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post('/tweet', tweetControllers.create);
 
-router.post('/user', userControllers.create);
+router.post('/signup', userControllers.create);
+router.get('/signin', userControllers.signIn);
 
 export default router;

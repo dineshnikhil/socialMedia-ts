@@ -37,11 +37,31 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     catch (error) {
         return res.status(400).json({
             data: {},
-            message: 'unable to create the tweet.!',
+            message: 'unable to create the user.!',
+            error: error,
+        });
+    }
+});
+const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield userServices.getUser(req.body.username);
+        const user2 = yield userServices.getUserById(user === null || user === void 0 ? void 0 : user._id);
+        console.log(user2);
+        return res.status(200).json({
+            data: user,
+            message: 'successfully fetched the user.!',
+            error: {},
+        });
+    }
+    catch (error) {
+        return res.status(400).json({
+            data: {},
+            message: 'unable to fetch the user.!',
             error: error,
         });
     }
 });
 exports.default = {
     create,
+    signIn,
 };

@@ -10,7 +10,27 @@ class UserServices {
 
 	async create(data: createUserType) {
 		try {
-			const user = this.userRepository.create(data);
+			const user = await this.userRepository.create(data);
+			return user;
+		} catch (error) {
+			console.log('something went wrong in the services layer.!');
+			console.log(error);
+		}
+	}
+
+	async getUser(username: string) {
+		try {
+			const user = await this.userRepository.getUser(username);
+			return user;
+		} catch (error) {
+			console.log('something went wrong in the services layer.!');
+			console.log(error);
+		}
+	}
+
+	async getUserById(userId: string) {
+		try {
+			const user = await this.userRepository.getUserById(userId);
 			return user;
 		} catch (error) {
 			console.log('something went wrong in the services layer.!');

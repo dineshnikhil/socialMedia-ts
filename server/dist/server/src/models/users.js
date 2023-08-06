@@ -39,7 +39,6 @@ userSchema.pre('save', function (next) {
             const salt = yield bcrypt_1.default.genSalt(saltRounds);
             const hashedPassword = yield bcrypt_1.default.hash(this.password, salt);
             this.password = hashedPassword;
-            console.log(this.password, 'after');
             return next();
         }
         catch (error) {

@@ -11,6 +11,28 @@ class UserRepository {
 			console.log(error);
 		}
 	}
+
+	async getUser(username: string) {
+		try {
+			const user = await User.findOne({
+				username: username,
+			});
+			return user;
+		} catch (error) {
+			console.log('something went wrong in repository layer..!');
+			console.log(error);
+		}
+	}
+
+	async getUserById(userId: string) {
+		try {
+			const user = await User.findById(userId);
+			return user;
+		} catch (error) {
+			console.log('something went wrong in repository layer..!');
+			console.log(error);
+		}
+	}
 }
 
 export default UserRepository;

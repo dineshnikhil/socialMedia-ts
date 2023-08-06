@@ -20,7 +20,31 @@ class UserServices {
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const user = this.userRepository.create(data);
+                const user = yield this.userRepository.create(data);
+                return user;
+            }
+            catch (error) {
+                console.log('something went wrong in the services layer.!');
+                console.log(error);
+            }
+        });
+    }
+    getUser(username) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = yield this.userRepository.getUser(username);
+                return user;
+            }
+            catch (error) {
+                console.log('something went wrong in the services layer.!');
+                console.log(error);
+            }
+        });
+    }
+    getUserById(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = yield this.userRepository.getUserById(userId);
                 return user;
             }
             catch (error) {

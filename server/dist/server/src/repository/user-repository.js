@@ -26,5 +26,31 @@ class UserRepository {
             }
         });
     }
+    getUser(username) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = yield users_1.default.findOne({
+                    username: username,
+                });
+                return user;
+            }
+            catch (error) {
+                console.log('something went wrong in repository layer..!');
+                console.log(error);
+            }
+        });
+    }
+    getUserById(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = yield users_1.default.findById(userId);
+                return user;
+            }
+            catch (error) {
+                console.log('something went wrong in repository layer..!');
+                console.log(error);
+            }
+        });
+    }
 }
 exports.default = UserRepository;
