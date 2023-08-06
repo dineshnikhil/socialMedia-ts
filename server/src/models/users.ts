@@ -1,7 +1,13 @@
 import mongoose from 'mongoose';
+import { Document } from 'mongoose';
+import bcrypt from 'bcrypt';
 import { createUserType } from '../../../common/src';
 
-const userSchema = new mongoose.Schema<createUserType>(
+// import {SALT} from '../config/server-config'
+
+interface createUserTypeInterface extends createUserType, Document {}
+
+const userSchema = new mongoose.Schema<createUserTypeInterface>(
 	{
 		username: {
 			type: String,
@@ -18,6 +24,24 @@ const userSchema = new mongoose.Schema<createUserType>(
 	},
 	{ timestamps: true }
 );
+
+// user save hook
+userSchema.pre<createUserTypeInterface>('save', async function (next) {
+	if (!this.isModified('password')) {
+		return next();
+	}
+
+	try {
+		const saltRounds = 10;
+		const salt = await bcrypt.genSalt(saltRounds);
+		const hashedPassword = await bcrypt.hash(this.password, salt);
+		this.password = hashedPassword;
+		return next();
+	} catch (error) {
+		console.log(error);
+		return next();
+	}
+});
 
 const User = mongoose.model('user', userSchema);
 
