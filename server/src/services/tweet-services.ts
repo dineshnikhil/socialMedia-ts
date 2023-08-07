@@ -16,6 +16,16 @@ class TweetServices {
 			console.log(error);
 		}
 	}
+
+	async getTweets(userId: string) {
+		try {
+			const tweets = await this.tweetRepository.getTweets(userId);
+			return tweets;
+		} catch (error) {
+			console.log('Something went wrong in the service layer..!');
+			console.log(error);
+		}
+	}
 }
 
 export default TweetServices;
