@@ -1,12 +1,15 @@
 import React from 'react';
 import { useRef } from 'react';
+import axios from 'axios';
 import { signInUser } from '../../../common/src/index';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
+	const navigate = useNavigate();
 	const username = useRef<HTMLInputElement>(null);
 	const password = useRef<HTMLInputElement>(null);
 
-	const loginSubmitHandler = (event: React.FormEvent) => {
+	const loginSubmitHandler = async (event: React.FormEvent) => {
 		event.preventDefault();
 		const pasedInput = signInUser.safeParse({
 			username: username.current?.value,
@@ -14,6 +17,16 @@ const Login: React.FC = () => {
 		});
 
 		if (pasedInput.success) {
+			const response = await axios.post(
+				'http://localhost:3000/api/v1/signin',
+				pasedInput.data
+			);
+			if (response.data.token) {
+				window.localStorage.setItem('token', response.data.token);
+				navigate('/');
+			} else {
+				window.alert('wrong input..!');
+			}
 		} else {
 			window.alert('wrong input..!');
 		}

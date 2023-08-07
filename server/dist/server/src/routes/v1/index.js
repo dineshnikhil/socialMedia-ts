@@ -11,5 +11,5 @@ const router = express_1.default.Router();
 router.post('/tweet', authenticate_1.default, tweet_controllers_1.default.create);
 router.get('/tweet', authenticate_1.default, tweet_controllers_1.default.getTweets);
 router.post('/signup', user_controllers_1.default.create);
-router.get('/signin', user_controllers_1.default.signIn);
+router.post('/signin', user_controllers_1.default.signIn);
 exports.default = router;
