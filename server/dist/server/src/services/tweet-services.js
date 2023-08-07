@@ -29,5 +29,17 @@ class TweetServices {
             }
         });
     }
+    getTweets(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const tweets = yield this.tweetRepository.getTweets(userId);
+                return tweets;
+            }
+            catch (error) {
+                console.log('Something went wrong in the service layer..!');
+                console.log(error);
+            }
+        });
+    }
 }
 exports.default = TweetServices;

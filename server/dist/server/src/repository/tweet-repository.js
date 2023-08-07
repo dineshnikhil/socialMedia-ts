@@ -25,5 +25,17 @@ class TweetRepository {
             }
         });
     }
+    getTweets(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const tweets = yield tweet_1.default.find({ userId: userId });
+                return tweets;
+            }
+            catch (error) {
+                console.log('something went wrong in the repository layer.!');
+                console.log(error);
+            }
+        });
+    }
 }
 exports.default = TweetRepository;

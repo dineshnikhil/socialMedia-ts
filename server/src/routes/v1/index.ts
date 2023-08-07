@@ -5,6 +5,7 @@ import authenticate from '../../middlewares/authenticate';
 const router = express.Router();
 
 router.post('/tweet', authenticate, tweetControllers.create);
+router.get('/tweet', authenticate, tweetControllers.getTweets);
 
 router.post('/signup', userControllers.create);
 router.get('/signin', userControllers.signIn);

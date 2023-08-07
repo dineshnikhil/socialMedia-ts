@@ -34,6 +34,25 @@ const create = async (req: Request, res: Response) => {
 	}
 };
 
+const getTweets = async (req: Request, res: Response) => {
+	try {
+		const userIdFromClient: string = req.headers['userId'] as string;
+		const tweets = await tweetServices.getTweets(userIdFromClient);
+		return res.status(200).json({
+			tweets: tweets,
+			message: 'successfully fetched the tweets.!',
+			error: {},
+		});
+	} catch (error) {
+		return res.status(400).json({
+			data: {},
+			message: 'unable to fetch the tweets.!',
+			error: error,
+		});
+	}
+};
+
 export default {
 	create,
+	getTweets,
 };
