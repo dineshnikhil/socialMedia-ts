@@ -13,12 +13,17 @@ const Home: React.FC = () => {
 	useEffect(() => {
 		const token = window.localStorage.getItem('token');
 		async function getTweets() {
-			const response = await axios.get('http://localhost:3000/api/v1/tweet', {
-				headers: {
-					Authorization: token,
-				},
-			});
-			setTweets(response.data.tweets);
+			try {
+				const response = await axios.get('http://localhost:3000/api/v1/tweet', {
+					headers: {
+						Authorization: token,
+					},
+				});
+				setTweets(response.data.tweets);
+			} catch (error) {
+				window.localStorage.removeItem('token');
+				window.location.reload();
+			}
 		}
 
 		if (!token) {

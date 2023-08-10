@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const jsonwebtoken_2 = require("jsonwebtoken");
 const authenticate = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const headerAuth = req.headers.authorization;
@@ -23,7 +24,7 @@ const authenticate = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         }
         const autheResData = jsonwebtoken_1.default.verify(headerAuth, 'thisisit');
         if (!autheResData) {
-            res.status(402).json({
+            return res.status(402).json({
                 error: 'invalid token..!',
             });
         }
@@ -31,6 +32,12 @@ const authenticate = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         next();
     }
     catch (error) {
+        if (error instanceof jsonwebtoken_2.TokenExpiredError) {
+            console.log('somehting..!');
+            return res.status(400).json({
+                error: 'token expried..!',
+            });
+        }
         console.log('something went wrong in the authentication..!');
         console.log(error);
     }

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { TokenExpiredError } from 'jsonwebtoken';
 
 interface AuthResponseData {
 	id: string; // Change the type to match the actual type of 'id' in autheResData
@@ -20,13 +21,20 @@ const authenticate = async (
 		}
 		const autheResData = jwt.verify(headerAuth, 'thisisit') as AuthResponseData;
 		if (!autheResData) {
-			res.status(402).json({
+			return res.status(402).json({
 				error: 'invalid token..!',
 			});
 		}
 		req.headers['userId'] = autheResData.id;
 		next();
 	} catch (error) {
+		if (error instanceof TokenExpiredError) {
+			console.log('somehting..!');
+
+			return res.status(401).json({
+				error: 'token expried..!',
+			});
+		}
 		console.log('something went wrong in the authentication..!');
 		console.log(error);
 	}

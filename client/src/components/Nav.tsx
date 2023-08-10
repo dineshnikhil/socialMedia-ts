@@ -6,6 +6,11 @@ import tokenState from '../store/atoms/tokenState';
 const Nav: React.FC = () => {
 	const tokenAtom = useRecoilValue(tokenState);
 	console.log(tokenAtom);
+
+	const logoutHandler = () => {
+		window.localStorage.removeItem('token');
+		window.location.reload();
+	};
 	return (
 		<nav>
 			<div>
@@ -18,7 +23,7 @@ const Nav: React.FC = () => {
 				</div>
 			) : (
 				<div>
-					<button>logout</button>
+					<button onClick={logoutHandler}>logout</button>
 				</div>
 			)}
 		</nav>
