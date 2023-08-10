@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { tweetType } from '../../../common/src';
+import tokenState from '../store/atoms/tokenState';
 
 const Home: React.FC = () => {
 	const navigate = useNavigate();
 	const [tweets, setTweets] = useState([]);
+	const setTokenAtom = useSetRecoilState(tokenState);
 
 	useEffect(() => {
 		const token = window.localStorage.getItem('token');
@@ -21,6 +24,9 @@ const Home: React.FC = () => {
 		if (!token) {
 			navigate('/login');
 		} else {
+			setTokenAtom({
+				token: token,
+			});
 			getTweets();
 		}
 	}, []);

@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-
+import { RecoilRoot } from 'recoil';
 import './App.css';
 import Nav from './components/Nav';
 import Login from './pages/Login';
@@ -8,7 +8,7 @@ import Home from './pages/Home';
 
 function App() {
 	return (
-		<>
+		<RecoilRoot>
 			<Nav />
 			<main>
 				<Routes>
@@ -17,7 +17,7 @@ function App() {
 					<Route path="/signup" element={<SignUp />} />
 				</Routes>
 			</main>
-		</>
+		</RecoilRoot>
 	);
 }
 
