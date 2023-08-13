@@ -1,22 +1,24 @@
 import mongoose from 'mongoose';
-import { z } from 'zod';
-import { tweetType } from '../../../common/src';
 
 // defining the tweet model schema.
-const tweetSchema = new mongoose.Schema<tweetType>(
+const tweetSchema = new mongoose.Schema(
 	{
 		content: {
 			type: String,
 			required: true,
+			max: [250, 'Tweet can not be more than 250 characters.'],
 		},
-		userId: {
-			type: String,
-		},
+		hastags: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Hastag',
+			},
+		],
 	},
 	{ timestamps: true }
 );
 
 // creating the tweet model.
-const Tweet = mongoose.model<tweetType>('tweet', tweetSchema);
+const Tweet = mongoose.model('tweet', tweetSchema);
 
 export default Tweet;
