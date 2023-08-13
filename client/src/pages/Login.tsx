@@ -5,6 +5,7 @@ import axios from 'axios';
 import { signInUser } from '../../../common/src/index';
 import { useNavigate } from 'react-router-dom';
 import tokenState from '../store/atoms/tokenState';
+import LoginForm from '../components/LoginForm';
 
 const Login: React.FC = () => {
 	const navigate = useNavigate();
@@ -41,13 +42,11 @@ const Login: React.FC = () => {
 	return (
 		<div>
 			<h2>Login</h2>
-			<form onSubmit={loginSubmitHandler}>
-				<label htmlFor="username">Username</label>
-				<input type="text" id="username" ref={username} />
-				<label htmlFor="password">Password</label>
-				<input type="password" id="password" ref={password} />
-				<button type="submit">login</button>
-			</form>
+			<LoginForm
+				username={username}
+				password={password}
+				onLoginHandler={loginSubmitHandler}
+			/>
 		</div>
 	);
 };
